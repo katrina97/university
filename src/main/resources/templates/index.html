@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Kathirina</title>
+    <style>
+       body {
+            font-family: "Lora", serif;
+            background-image: url('images/back.webp');
+            background-size: cover;
+            text-align: center; /* выравнивание по центру */
+        }
+
+
+        form {
+            display: inline-block; /* отображение формы как блока */
+            text-align: left; /* выравнивание текста внутри формы слева */
+            margin: 0 auto; /* автоматическое центрирование формы */
+            z-index: 1;
+        }
+
+        label {
+            display: inline-block; /* отображение названий полей в строчку */
+            margin-bottom: 5px; /* небольшие отступы между названиями полей */
+            width: 150px; /* фиксированная ширина для названий полей */
+            text-align: right; /* выравнивание текста названий полей по правому краю */
+            font-size: 22px; /* Размер шрифта */
+            z-index: 1;
+        }
+
+        input[type="text"] {
+            width: 300px; /* фиксированная ширина полей */
+            height: 40px; /* фиксированная высота полей */
+            font-size: 20px; /* размер шрифта */
+            padding: 10px; /* внутренние отступы в полях */
+            border: 2px solid black; /* черная рамка */
+            border-radius: 10px; /* скругление углов */
+            margin-bottom: 10px; /* отступ между полями */
+            z-index: 1;
+        }
+        input[type="email"] {
+    width: 300px; /* фиксированная ширина поля */
+    height: 40px; /* фиксированная высота поля */
+    font-size: 20px; /* размер шрифта */
+    padding: 10px; /* внутренние отступы в поле */
+    border: 2px solid black; /* черная рамка */
+    border-radius: 10px; /* скругление углов */
+    margin-bottom: 10px; /* отступ между полями */
+    z-index: 1;
+}
+
+
+        body, label, input[type="text"], #studentListHeading {
+    color: black; /* Черный цвет текста */
+    text-shadow: 0 0 2px white; /* Добавление белой тени вокруг текста */
+}
+
+
+        button {
+            width: 200px; /* фиксированная ширина кнопки */
+            height: 50px; /* фиксированная высота кнопки */
+            font-size: 24px; /* размер шрифта */
+            padding: 10px; /* внутренние отступы в кнопке */
+            background-color: #006400; /* синий цвет фона кнопки */
+            color: white; /* белый цвет текста кнопки */
+            border: none; /* удаление рамки */
+            border-radius: 10px; /* скругление углов */
+            cursor: pointer; /* изменение курсора при наведении */
+            z-index: 1;
+        }
+
+        input:invalid {
+            border-color: #FF0000; /* красная рамка вокруг пустых обязательных полей */
+        }
+
+
+        @keyframes firework {
+  0% {
+    transform: translate(-50%, 60vh);
+    width: 7vmin;
+    opacity: 1;
+  }
+  50% {
+    width: 7vmin;
+    opacity: 1;
+  }
+  100% {
+    width: 45vmin;
+    opacity: 0;
+  }
+}
+
+.firework,
+.firework::before,
+.firework::after {
+  --top: 60vh;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 7vmin;
+  aspect-ratio: 1;
+  background:
+    /* random backgrounds */
+    radial-gradient(circle, #ff0 1vmin, #0000 0) 50% 00%,
+    radial-gradient(circle, #f00 1.5vmin, #0000 0) 00% 50%,
+    radial-gradient(circle, #0f0 2.5vmin, #0000 0) 50% 99%,
+    radial-gradient(circle, #00f 1vmin, #0000 0) 99% 50%,
+    radial-gradient(circle, #f0f 1.5vmin, #0000 0) 80% 90%,
+    radial-gradient(circle, #0ff 2.5vmin, #0000 0) 95% 90%,
+    radial-gradient(circle, #ff0 2.5vmin, #0000 0) 10% 60%,
+    radial-gradient(circle, #f00 1vmin, #0000 0) 31% 80%,
+    radial-gradient(circle, #0f0 1.5vmin, #0000 0) 80% 10%,
+    radial-gradient(circle, #00f 1vmin, #0000 0) 90% 23%,
+    radial-gradient(circle, #f0f 1.5vmin, #0000 0) 45% 20%,
+    radial-gradient(circle, #0ff 2.5vmin, #0000 0) 13% 24%
+    ;
+  background-size: 1vmin 1vmin;
+  background-repeat: no-repeat;
+  animation: firework 2s infinite;
+}
+
+.firework::before {
+  transform: translate(-50%, -50%) rotate(25deg) !important;
+}
+
+.firework::after {
+  transform: translate(-50%, -50%) rotate(-37deg) !important;
+}
+
+#logo {
+    position: absolute; /* установка абсолютного позиционирования */
+    top: 5px; /* отступ от верхнего края страницы */
+    left: 5px; /* отступ от левого края страницы */
+    z-index: 1; /* уровень накладывания, если нужно */
+}
+
+#studentListHeading {
+text-align: left;
+z-index: 1;
+}
+
+#ribbonContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+
+    </style>
+</head>
+<body>
+<!-- Логотип университета -->
+<img id="logo" src="images/kate.png" alt="Логотип университета" style="width: 300px; height: 300px;">
+
+<!-- Контейнер для вашей картинки -->
+<div id="ribbonContainer">
+    <img id="ribbon" src="images/ribbon.png" alt="Картинка ленточки" style="width: 450px; height: 450px;">
+</div>
+
+<!-- Остальная часть вашей страницы -->
+<h1>New Student</h1>
+<form id="studentForm">
+    <div class="input-group">
+        <label for="firstName">First Name*:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Jack" required>
+    </div>
+
+    <div class="input-group">
+        <label for="lastName">Last Name*:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Jason" required>
+    </div>
+
+    <div class="input-group">
+        <label for="birthDate">Birth Date*:</label>
+        <input type="text" id="birthDate" name="birthDate" placeholder="1999-12-30" required pattern="\d{4}-\d{2}-\d{2}">
+    </div>
+
+    <div class="input-group">
+        <label for="admissionDate">Admission Date*:</label>
+        <input type="text" id="admissionDate" name="admissionDate" placeholder="2015-05-26" required pattern="\d{4}-\d{2}-\d{2}">
+    </div>
+
+    <div class="input-group">
+        <label for="faculty">Faculty*:</label>
+        <input type="text" id="faculty" name="faculty" placeholder="linguistics" required>
+    </div>
+
+    <div class="input-group">
+        <label for="email">Email*:</label>
+        <input type="email" id="email" name="email" placeholder="example@example.com" required>
+    </div>
+
+    <button type="button" onclick="checkAndAddStudent()">Add Student</button>
+</form>
+
+<h1 id="studentListHeading">Students List</h1>
+<ul id="studentList"></ul>
+
+
+<div id="fireworkContainer"></div>
+
+<!-- Контейнер для вашей картинки -->
+<div id="imageContainer"></div>
+
+<script>
+ // Проверка на корректность формата даты (yyyy-mm-dd)
+        function isValidDateFormat(dateString) {
+    var regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(dateString)) return false; // Проверка формата даты
+
+    var parts = dateString.split('-');
+    var year = parseInt(parts[0]);
+    var month = parseInt(parts[1]);
+    var day = parseInt(parts[2]);
+
+    if (month < 1 || month > 12) return false; // Проверка корректности месяца
+    if (day < 1 || day > 31) return false; // Проверка корректности дня
+
+    // Проверка корректности даты с учетом високосных годов и числа дней в месяце
+    var daysInMonth = new Date(year, month, 0).getDate();
+    if (day > daysInMonth) return false;
+
+    return true;
+}
+
+
+        function checkAndAddStudent() {
+    var firstName = document.getElementById("firstName").value;
+    var lastName = document.getElementById("lastName").value;
+    var birthDate = document.getElementById("birthDate").value;
+    var admissionDate = document.getElementById("admissionDate").value;
+    var faculty = document.getElementById("faculty").value;
+    var email = document.getElementById("email").value;
+
+
+// Проверка на заполненность полей и корректность формата даты
+if (firstName && lastName && isValidDateFormat(birthDate) && isValidDateFormat(admissionDate) && faculty && email) {
+    var student = {
+        firstName: firstName,
+        lastName: lastName,
+        birthDate: birthDate,
+        admissionDate: admissionDate,
+        faculty: faculty,
+        email: email
+    };
+
+
+            // Создание и добавление звукового элемента
+    var fireworkSound = new Audio('media/piro.mp3');
+    fireworkSound.play();
+
+            function createFireworks(numFireworks) {
+    for (let i = 0; i < numFireworks; i++) {
+        createFirework();
+    }
+}
+            function createFirework() {
+        var firework = document.createElement('div');
+        firework.classList.add('firework');
+
+        // Расположение салюта в разных частях экрана
+    var x = Math.random() * window.innerWidth;
+    var y = Math.random() * window.innerHeight;
+    firework.style.left = x + 'px';
+    firework.style.top = y + 'px';
+    firework.style.zIndex = '2'; // Устанавливаем z-index больше
+
+        document.getElementById('fireworkContainer').appendChild(firework);
+    }
+
+            fetch('/students', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(student)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                fetchStudents();
+                createFireworks(10);
+                fireworkSound.play();
+
+
+                  // Создание и добавление картинки
+            var image = document.createElement('img');
+            image.src = 'images/congratulation.png'; // Укажите путь к вашей картинке
+            image.style.width = '900px'; // Укажите желаемую ширину картинки
+            image.style.height = '300px'; // Укажите желаемую высоту картинки
+            image.style.zIndex = '1'; // Устанавливаем z-index меньше
+
+            // Задание позиции картинки в центре страницы
+image.style.position = 'fixed'; // Фиксированная позиция
+image.style.top = '50%'; // По вертикали в середине
+image.style.left = '50%'; // По горизонтали в середине
+image.style.transform = 'translate(-50%, -50%)'; // Центрирование относительно центра
+
+            document.getElementById('imageContainer').appendChild(image);
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+             } else {
+            // Вывод сообщения об ошибке
+            alert('Please fill out all fields correctly and make sure the date is in the format yyyy-mm-dd');
+        }
+    }
+
+
+
+        function fetchStudents() {
+            fetch('/students')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Students:', data);
+                data.forEach(student => {
+                    var listItem = document.createElement('li');
+                    listItem.textContent = student.firstName + ' ' + student.lastName  + ' ' + student.faculty + ' ' + student.email;
+                    document.getElementById("studentListHeading").appendChild(listItem);
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            // Очистка полей формы после добавления студента
+            document.getElementById("firstName").value = "";
+            document.getElementById("lastName").value = "";
+            document.getElementById("birthDate").value = "";
+            document.getElementById("admissionDate").value = "";
+            document.getElementById("faculty").value = "";
+            document.getElementById("email").value = "";
+
+                document.getElementById("studentListHeading").textContent = 'Students List';
+        }
+
+
+
+        // Обработчики событий для проверки формата даты при вводе
+document.getElementById("birthDate").addEventListener("input", function() {
+    var birthDate = this.value;
+    if (!isValidDateFormat(birthDate)) {
+        this.classList.add("invalid-date"); // Добавляем класс для красной рамки
+    } else {
+        this.classList.remove("invalid-date"); // Убираем класс, если дата корректна
+    }
+});
+
+document.getElementById("admissionDate").addEventListener("input", function() {
+    var admissionDate = this.value;
+    if (!isValidDateFormat(admissionDate)) {
+        this.classList.add("invalid-date"); // Добавляем класс для красной рамки
+    } else {
+        this.classList.remove("invalid-date"); // Убираем класс, если дата корректна
+    }
+});
+
+window.unload = fetchStudents;
+
+</script>
+</body>
+</html>
