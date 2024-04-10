@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
+import jakarta.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
@@ -56,11 +59,23 @@ public class StudentController {
         if (!DateValidator.isValidDate(admissionDateStr)) {
             return ResponseEntity.badRequest().body("Invalid admission date. Please use valid date format.");
         }
+
         // Сохранение студента
         studentService.saveStudent(student);
 
         // Получение обновленного списка всех студентов
         List<Student> allStudents = studentService.getAllStudents();
+        // Отправка письма с приветствием
+        try {
+            String recipientEmail = student.getEmail();
+            String firstName = student.getFirstName();
+            String lastName = student.getLastName();
+            studentService.sendWelcomeEmail(recipientEmail, firstName, lastName); // Использование метода из сервиса
+            System.out.println("Email sent successfully.");
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            System.out.println("Failed to send email. Error: " + e.getMessage());
+        }
+
 
         // Возвращение статуса 200 OK с обновленным списком студентов
         return ResponseEntity.ok().body(allStudents);

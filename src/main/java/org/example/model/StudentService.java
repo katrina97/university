@@ -3,10 +3,13 @@ package org.example.model;
 
 
 import jakarta.validation.Valid;
+import org.example.model.service.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import jakarta.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,14 +18,24 @@ import java.util.Optional;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final EmailSender emailSender; // Добавлено поле для EmailSender
+
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, EmailSender emailSender) {
         this.studentRepository = studentRepository;
+        this.emailSender = emailSender; // Внедрение зависимости EmailSender
     }
+
+    public void sendWelcomeEmail(String recipientEmail, String firstName, String lastName) throws MessagingException, UnsupportedEncodingException {
+        emailSender.sendEmail(recipientEmail, firstName, lastName);
+    }
+
 
     // Метод для сохранения студента
     public Student saveStudent(@Valid Student student) {
+
+
         return studentRepository.save(student);
     }
 
